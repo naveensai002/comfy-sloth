@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useFilterContext } from '../context/filter_context';
 import { getUniqueValues, formatPrice } from '../utils/helpers';
 import { FaCheck } from 'react-icons/fa';
-import { GiControlTower } from 'react-icons/gi';
+import { GiCatch, GiControlTower } from 'react-icons/gi';
 
 const Filters = () => {
   const {
@@ -22,7 +22,12 @@ const Filters = () => {
     all_products,
   } = useFilterContext();
 
+  const categories = getUniqueValues(all_products, 'category');
+  const companies = getUniqueValues(all_products, 'company');
+  const colors = getUniqueValues(all_products, 'colors');
+
   // console.log(max_price, price);
+  console.log(categories);
   return (
     <Wrapper>
       <div className='content'>
@@ -37,6 +42,29 @@ const Filters = () => {
               className='search-input'
             />
           </div>
+          {/*categories */}
+          <div className='form-control'>
+            <h5>category</h5>
+            <div>
+              {categories.map((c, index) => {
+                return (
+                  <button
+                    type='button'
+                    name='category'
+                    key={index}
+                    onClick={updateFilters}
+                    className={`${
+                      category === c.toLowerCase() ? 'active' : null
+                    }`}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* end of categories */}
         </form>
       </div>
     </Wrapper>
