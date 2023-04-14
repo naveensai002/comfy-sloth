@@ -11,10 +11,15 @@ import {
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
+    // console.log(action.payload); action.payload is products that we are getting from product context
+    let max_price = action.payload.map((p) => p.price);
+    max_price = Math.max(...max_price);
+    // console.log(max_price);
     return {
       ...state,
       all_products: [...action.payload],
       filtered_products: [...action.payload],
+      filters: { ...state.filters, max_price: max_price, price: max_price },
     };
   }
 

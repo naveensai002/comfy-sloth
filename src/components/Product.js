@@ -18,9 +18,6 @@ const Product = ({ products }) => {
       <footer />
       <h5>{name}</h5>
       <p>{formatPrice(price)}</p>
-      <Link to={`/product/${id}`} className='btn'>
-        Details
-      </Link>
     </Wrapper>
   );
 };
