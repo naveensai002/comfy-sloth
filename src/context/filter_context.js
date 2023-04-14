@@ -43,11 +43,15 @@ export const FilterProvider = ({ children }) => {
     return { [name]: value };
   };
 
-  function updateFilters() {}
+  function updateFilters(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    // console.log(name, value);
+    dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+  }
 
   function clearFilters() {}
 
-  
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: products });
   }, [products]);

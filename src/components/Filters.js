@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useFilterContext } from '../context/filter_context';
 import { getUniqueValues, formatPrice } from '../utils/helpers';
 import { FaCheck } from 'react-icons/fa';
+import { GiControlTower } from 'react-icons/gi';
 
 const Filters = () => {
   const {
@@ -22,7 +23,24 @@ const Filters = () => {
   } = useFilterContext();
 
   // console.log(max_price, price);
-  return <Wrapper>Filters</Wrapper>;
+  return (
+    <Wrapper>
+      <div className='content'>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className='form-control'>
+            <input
+              type='text'
+              value={text}
+              name='text'
+              onChange={updateFilters}
+              placeholder='search'
+              className='search-input'
+            />
+          </div>
+        </form>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
