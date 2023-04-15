@@ -10,7 +10,7 @@ import Shimmer from './Shimmer';
 const FeaturedProducts = () => {
   const { products_loading, products_error, featured_products } =
     useProductsContext();
-  console.log(featured_products);
+  // console.log(featured_products);
 
   if (products_loading) {
     return <Loading />;

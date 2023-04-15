@@ -14,18 +14,18 @@ const Filters = () => {
       color,
       min_price,
       max_price,
-      actual_price,
+      price,
       shipping,
     },
     updateFilters,
     clearFilters,
     all_products,
   } = useFilterContext();
-
+  // console.log(all_products);
   const categories = getUniqueValues(all_products, 'category');
   const companies = getUniqueValues(all_products, 'company');
   const colors = getUniqueValues(all_products, 'colors');
-
+  // console.log(colors);
   // console.log(max_price, price);
   console.log(categories);
   return (
@@ -46,7 +46,7 @@ const Filters = () => {
           <div className='form-control'>
             <h5>category</h5>
             <div>
-              {categories.map((c, index) => {
+              {categories.map((categori, index) => {
                 return (
                   <button
                     type='button'
@@ -54,10 +54,10 @@ const Filters = () => {
                     key={index}
                     onClick={updateFilters}
                     className={`${
-                      category === c.toLowerCase() ? 'active' : null
+                      category === categori.toLowerCase() ? 'active' : null
                     }`}
                   >
-                    {c}
+                    {categori}
                   </button>
                 );
               })}
@@ -65,6 +65,91 @@ const Filters = () => {
           </div>
 
           {/* end of categories */}
+          {/* companies */}
+          <div className='form-control'>
+            <h5>Company</h5>
+            <select
+              name='company'
+              id='company'
+              value={company}
+              onChange={updateFilters}
+              className='company'
+            >
+              {companies.map((company, index) => {
+                return <option key={index}>{company}</option>;
+              })}
+            </select>
+          </div>
+
+          {/* end of companies */}
+          {/* colors */}
+          <div className='form-control'>
+            <span>colors</span>
+            <div className='colors'>
+              {colors.map((c, index) => {
+                if (c === 'all') {
+                  return (
+                    <button
+                      name='color'
+                      onClick={updateFilters}
+                      data-color='all'
+                      className={`${
+                        color === 'all' ? 'all-btn active' : 'all-btn'
+                      }`}
+                    >
+                      all
+                    </button>
+                  );
+                }
+                return (
+                  <button
+                    key={index}
+                    name='color'
+                    onClick={updateFilters}
+                    style={{ background: c }}
+                    className={`${
+                      color === c ? 'color-btn active' : 'color-btn'
+                    }`}
+                    data-color={c}
+                  >
+                    {color === c ? <FaCheck /> : null}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          {/* end of colors */}
+
+          {/* price */}
+          <div className='form-control'>
+            <h5>price</h5>
+            <p className='price'>{formatPrice(price)}</p>
+            <input
+              type='range'
+              name='price'
+              value={price}
+              onChange={updateFilters}
+              min={min_price}
+              max={max_price}
+            />
+          </div>
+          {/* end of price */}
+
+          <div className='form-control shipping'>
+            <label>free Shipping</label>
+            <input
+              type='checkbox'
+              name='shipping'
+              id='shipping'
+              checked={shipping}
+              onChange={updateFilters}
+            />
+          </div>
+          {/*  */}
+
+          <button type='button' className='clear-btn' onClick={clearFilters}>
+            clear filters
+          </button>
         </form>
       </div>
     </Wrapper>

@@ -5,7 +5,7 @@ const ProductImages = ({ images = [{ url: '' }] }) => {
   const [main, setMain] = useState(images[0]);
   // at starting the images will be undefined the after 2 3 seconds it loads so to prevent this
 
-  console.log(images);
+  // console.log(images);
   return (
     <Wrapper>
       <img src={main.url} className='main' alt='main image' />

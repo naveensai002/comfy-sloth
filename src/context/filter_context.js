@@ -24,7 +24,7 @@ const initialState = {
     color: 'all',
     min_price: 0,
     max_price: 0,
-    actual_price: 0,
+    price: 0,
     shipping: false,
   },
 };
@@ -38,19 +38,31 @@ export const FilterProvider = ({ children }) => {
   const updateSort = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log({ [name]: value });
+    // console.log({ [name]: value });
     dispatch({ type: UPDATE_SORT, payload: value });
     return { [name]: value };
   };
 
-  function updateFilters(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-    // console.log(name, value);
-    dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
-  }
+  const updateFilters = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
 
-  function clearFilters() {}
+    if (name === 'category') {
+      value = e.target.textContent;
+    }
+    if (name === 'color') {
+      value = e.target.dataset.color;
+    }
+    if (name === 'shipping') {
+      value = e.target.checked;
+    }
+    // console.log({ name, value });
+    dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+  };
+
+  function clearFilters() {
+    dispatch({ type: CLEAR_FILTERS });
+  }
 
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: products });
