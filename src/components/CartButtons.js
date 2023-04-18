@@ -5,21 +5,41 @@ import styled from 'styled-components';
 import { useProductsContext } from '../context/products_context';
 import { useCartContext } from '../context/cart_context';
 import { useUserContext } from '../context/user_context';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
+  const { total_items } = useCartContext();
+  console.log(total_items);
+  const { loginWithRedirect, myUser, logout } = useUserContext();
   return (
     <Wrapper className='cart-btn-wrapper'>
       <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
         cart
         <span className='cart-container'>
           <FaShoppingCart />
-          <span className='cart-value'>12</span>
+          <span className='cart-value'>{total_items}</span>
         </span>
       </Link>
-      <button className='auth-btn' type='button' onClick={closeSidebar}>
-        login <FaUserPlus />
-      </button>
+      {myUser ? (
+        <button
+          type='submit'
+          className='auth-btn'
+          onClick={() => logout({ returnTo: window.location.origin })}
+        >
+          Logout <FaUserMinus />
+        </button>
+      ) : (
+        <button
+          className='auth-btn'
+          type='button'
+          // onClick={closeSidebar}
+          onClick={loginWithRedirect}
+        >
+          login <FaUserPlus />
+        </button>
+      )}
     </Wrapper>
   );
 };

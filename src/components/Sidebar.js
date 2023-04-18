@@ -12,6 +12,7 @@ const Sidebar = () => {
   const { isSidebarOpen, closeSidebar } = useProductsContext();
   // console.log(isSidebarOpen);
   const isOpen = true;
+  const { myUser } = useUserContext();
   return (
     <SidebarContainer>
       <aside
@@ -35,9 +36,13 @@ const Sidebar = () => {
             );
           })}
           <li>
-            <Link to='/checkout' onClick={closeSidebar}>
-              checkout
-            </Link>
+            {myUser && (
+              <li>
+                <Link to='/checkout' onClick={closeSidebar}>
+                  checkout
+                </Link>
+              </li>
+            )}
           </li>
         </ul>
         <CartButtons />
